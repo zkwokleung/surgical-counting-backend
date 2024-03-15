@@ -2,6 +2,7 @@ from fastapi import Depends, FastAPI
 
 from .internal import admin
 from .predicts import router as predicts
+from .status import router as status
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -17,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+app.include_router(status.router)
 app.include_router(predicts.router)
 app.include_router(
     admin.router,

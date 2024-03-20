@@ -7,8 +7,8 @@ OUTPUT_DIR = "./"
 # The path to the model
 MODEL_PATH = "./app/predicts/model.pt"
 
-# A list of objects to be detected
-SUGICAL_OBJECTS_NAMES = [
+# A list of objects to be detected and its order.
+SURGICAL_OBJECTS_NAMES = [
     "iris_scissor",
     "needle_holder",
     "bip_fx",

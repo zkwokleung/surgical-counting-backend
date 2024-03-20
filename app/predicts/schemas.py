@@ -13,7 +13,7 @@ class PredictResponseBody(BaseModel):
         title="The string of a base64 encoded image file", examples=["Y3Voaw=="]
     )
     objects: list = Field(
-        title="The list of objects found in the image in order from left to right",
+        title="The list of objects and found in the image in order from left to right, along with the object id.",
         examples=[
             [
                 [6, "suction_cannula"],

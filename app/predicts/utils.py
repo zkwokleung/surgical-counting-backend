@@ -3,7 +3,7 @@ from ultralytics import YOLO
 from PIL import Image
 import base64
 
-from .constants import MODEL_PATH, CONF_THRESHOLD
+from .constants import MODEL_PATH, CONF_THRESHOLD, SURGICAL_OBJECTS_NAMES
 import numpy as np
 import cv2
 
@@ -28,7 +28,10 @@ def detect(image_str: str):
 
     # Calculate the position of objects
     sorted_objs = [
-        (int(r[1].cls), results[0].names[int(r[0])])
+        (
+            SURGICAL_OBJECTS_NAMES.index(results[0].names[int(r[0])]),
+            results[0].names[int(r[1].cls[0])],
+        )
         for r in sorted(enumerate(results[0].boxes), key=lambda x: x[1].xyxy[0][0])
     ]
 

@@ -1,1 +1,1 @@
-uvicorn app.main:app --reload
+uvicorn app.main:app --host $(ipconfig getifaddr en0) --reload

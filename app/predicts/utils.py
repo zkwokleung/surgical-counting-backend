@@ -17,7 +17,7 @@ def detect(image_str: str):
     img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
     # Perform prediction
-    results = model(img_np, conf=CONF_THRESHOLD)
+    results = model(img_np, conf=CONF_THRESHOLD, imgsz=1280)
 
     # Encode the result image to base64
     im_array = results[0].plot()

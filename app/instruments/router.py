@@ -27,7 +27,8 @@ async def get_all():
     response_class=FileResponse,
 )
 async def get_image(id: str):
-    try:
-        return FileResponse("./app/instruments/images/" + id + ".jpg")
-    except:
-        raise HTTPException(status_code=404, detail="Image not found")
+    # Check if the instrument exists
+    if INSTRUMENT_DATA.get(id) is None:
+        raise HTTPException(status_code=404, detail="Instrument not found")
+
+    return FileResponse("./app/instruments/images/" + id + ".jpg")

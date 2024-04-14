@@ -27,4 +27,7 @@ async def get_all():
     response_class=FileResponse,
 )
 async def get_image(id: str):
-    return FileResponse("./app/instruments/images/" + id + ".jpg")
+    try:
+        return FileResponse("./app/instruments/images/" + id + ".jpg")
+    except:
+        raise HTTPException(status_code=404, detail="Image not found")

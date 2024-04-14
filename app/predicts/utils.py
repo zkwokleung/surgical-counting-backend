@@ -11,10 +11,13 @@ import cv2
 def detect(image_str: str):
     model = YOLO(MODEL_PATH)
 
-    # Decode the image from base64
-    image_bytes = base64.b64decode(image_str)
-    nparr = np.fromstring(image_bytes, np.uint8)
-    img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    try:
+        # Decode the image from base64
+        image_bytes = base64.b64decode(image_str)
+        nparr = np.fromstring(image_bytes, np.uint8)
+        img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    except Exception:
+        raise ValueError("Invalid image") from None
 
     # Perform prediction
     results = model(img_np, conf=CONF_THRESHOLD, imgsz=1280)
@@ -29,7 +32,7 @@ def detect(image_str: str):
     # Calculate the position of objects
     sorted_objs = [
         (
-            SURGICAL_OBJECTS_NAMES.index(results[0].names[int(r[0])]),
+            SURGICAL_OBJECTS_NAMES.index(results[0].names[int(r[1].cls[0])]),
             results[0].names[int(r[1].cls[0])],
         )
         for r in sorted(enumerate(results[0].boxes), key=lambda x: x[1].xyxy[0][0])

@@ -43,3 +43,27 @@ def test_prediction():
     #     [0, "speculum"],
     #     [1, "bip_fx"],
     # ]
+
+
+def test_prediction_no_image():
+    # Send a POST request to the API
+    response = client.post(
+        "/predict/",
+        json={
+            "image": "",
+        },
+    )
+
+    # Assert the status code
+    assert response.status_code == 422
+
+
+def test_prediction_no_image_key():
+    # Send a POST request to the API
+    response = client.post(
+        "/predict/",
+        json={},
+    )
+
+    # Assert the status code
+    assert response.status_code == 422
